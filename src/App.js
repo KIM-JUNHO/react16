@@ -1,17 +1,29 @@
 import React, { Component, Fragment } from "react";
 
+const MAX_PIZZAS = 20;
+
+const eatPizza = (state, props) => {
+  const { pizzas } = state;
+  return {
+    pizzas: pizzas + 1
+  };
+};
+
 class Controlled extends Component {
   state = {
-    pizzas: 10
+    pizzas: 0
   };
   render() {
     const { pizzas } = this.state;
     return (
-      <button>{`I have aten ${pizzas} ${
+      <button onClick={this._handleClick}>{`I have eaten ${pizzas} ${
         pizzas === 1 ? "pizza" : "pizzas"
       }`}</button>
     );
   }
+  _handleClick = () => {
+    this.setState(eatPizza);
+  };
 }
 
 class App extends Component {
