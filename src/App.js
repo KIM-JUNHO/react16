@@ -1,13 +1,13 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 
 class ReturnTypes extends Component {
   render() {
     return (
-      <span>
+      <Fragment>
         <header></header>
         <div></div>
         <footer></footer>
-      </span>
+      </Fragment>
     );
   }
 }
