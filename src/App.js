@@ -19,9 +19,6 @@ class ErrorMaker extends Component {
 }
 
 class Portals extends Component {
-  componentDidCatch = (error, info) => {
-    console.log(`cached ${error} the info i have is ${JSON.stringify(info)}`);
-  };
   render() {
     return createPortal(<Message />, document.getElementById("touchme"));
   }
@@ -35,14 +32,27 @@ class ReturnTypes extends Component {
   }
 }
 
-function App() {
-  return (
-    <Fragment>
-      <ReturnTypes />
-      <Portals />
-      <ErrorMaker />
-    </Fragment>
-  );
+const ErrorFallback = () => " Sorry something went wrong";
+
+class App extends Component {
+  state = {
+    hasError: false
+  };
+  componentDidCatch = (error, info) => {
+    this.setState({
+      hasError: true
+    });
+  };
+  render() {
+    const { hasError } = this.state;
+    return (
+      <Fragment>
+        <ReturnTypes />
+        <Portals />
+        {hasError ? <ErrorFallback /> : <ErrorMaker />}
+      </Fragment>
+    );
+  }
 }
 
 export default App;
